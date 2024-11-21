@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #004080;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+
+        .navbar a:hover {
+            color: #ffcc00;
+        }
+
+        /* Main content styling */
+        .content, .about-section, .programs-section {
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .content.active, .about-section.active, .programs-section.active {
+            display: block;
+        }
+
+        h1 {
+            color: #004080;
+        }
+
+/* Styling for sub-sections in About Us */
+.about-section {
+    display: flex;
+    flex-wrap: wrap; /* Allows for wrapping of items */
+    gap: 20px; /* Adds space between each sub-section */
+    justify-content: flex-start; /* Aligns the sub-sections to the left */
+    padding: 20px;
+}
+
+.about-section .sub-section {
+    display: flex;
+    flex-direction: row; /* Aligns content horizontally (image on the right, text on the left) */
+    align-items: center; /* Centers content vertically within each sub-section */
+    justify-content: flex-start; /* Aligns content at the top */
+    background-color: #f0f0f0;
+    padding: 20px; /* Adds padding for better spacing */
+    margin: 20px; /* Adds margin for spacing between sections */
+    border-radius: 8px;
+    width: 100%; /* Make the sub-section take up the full width of the container */
+    height: auto; /* Adjusts height based on content */
+    box-sizing: border-box; /* Ensures padding and margin don't affect width calculation */
+}
+
+.sub-section img {
+    width: 50%; /* The image takes up 50% of the width */
+    height: auto; /* Keep the aspect ratio of the image */
+    max-width: 400px; /* Max width ensures the image isn't too large */
+    border-radius: 8px; /* Round the corners of the image */
+    margin-right: 20px; /* Adds space between the image and the text */
+}
+
+.sub-section-content {
+    flex: 1;
+    width: 50%; /* The content takes up the remaining 50% */
+    padding: 10px; /* Adds padding for better spacing */
+}
+
+.sub-section-content h2 {
+    margin: 0 0 10px 0; /* Adds margin below the title */
+    color: #004080;
+}
+
+.sub-section-content p {
+    color: #333;
+    line-height: 1.8; /* Increased line height for better readability */
+    font-size: 1.1rem; /* Slightly increased font size for readability */
+    text-align: justify; /* Justify the paragraph text */
+    margin: 0;
+}
+
+
+/* Ensure the programs-section is initially hidden and only displayed when .active is added */
+.programs-section {
+    display: none;  /* Hide the section initially */
+    flex-wrap: wrap;
+    gap: 20px; /* Adds space between each program */
+    padding: 20px;
+}
+
+.programs-section.active {
+    display: flex; /* Show when active class is added */
+}
+
+.program {
+    display: flex;
+    flex-direction: row; /* Aligns content horizontally (image on the left, text on the right) */
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.program img {
+    width: 60%; /* Image size */
+    height: auto;
+    max-width: 600px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.program .program-content {
+    flex: 1;
+    padding: 10px;
+    text-align: left;
+}
+
+.program h3 {
+    margin: 0 0 10px 0;
+    color: #004080;
+    font-size: 1.5rem;
+}
+
+.program p {
+    color: #333;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+    margin: 0;
+}
+
+
+
+/* Initial styling for all sections */
+.content, .about-section, .programs-section {
+    padding: 20px;
+    text-align: center;
+    display: none;
+}
+
+/* Active section will display */
+.content.active, .about-section.active, .programs-section.active {
+    display: block;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #004080;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.navbar a:hover {
+    color: #ffcc00;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    background-color: #004080;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    top: 60px; /* Position it right below the navbar */
+    left: 0;
+    z-index: 1;
+    width: 200px; /* Optional: Set a width for the dropdown */
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    text-align: left;
+}
+
+.dropdown-menu li a {
+    color: white;
+    text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+    color: #ffcc00;
+}
+
+/* Show dropdown when the Teachers link is clicked */
+#teachers-menu.active {
+    display: block;
+}
+
+/* Ensure that Teachers menu link is positioned relative to contain the dropdown */
+.navbar .menu {
+    position: relative;
+}
+
+/* Styling for Grade Content */
+.grade-section {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    display: none; /* Hidden by default */
+    text-align: center;
+}
+
+.grade-section img {
+    width: 1000%; /* Adjust width as needed */
+    max-width: 3000px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.grade-section p {
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #004080;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    border-radius: 8px;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    text-align: left;
+}
+
+.dropdown-menu li a {
+    color: white;
+    text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+    color: #ffcc00;
+}
+
+/* Show dropdown when the News link is clicked */
+#news-menu.active {
+    display: block;
+}
+
+/* Position dropdown menu under the News link */
+.menu a:last-child {
+    position: relative; /* Make sure the parent link is the reference point */
+}
+
+#news-menu {
+    top: 100%; /* Position the dropdown below the News link */
+    left: 0;
+}
+
+
+/* .article {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        } */
+        /* .article h2 {
+            color: #004080;
+        } */
+        .article {
+    display: flex; /* Use flexbox for layout */
+    align-items: flex-start; /* Align items at the top */
+    gap: 20px; /* Space between the image and content */
+    margin-bottom: 20px; /* Space between articles */
+}
+
+.article img {
+    flex-shrink: 0; /* Prevent image from shrinking */
+    width: 40%; /* Adjusted width for better layout */
+    max-width: 500px; /* Set maximum width for large images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0; /* Remove unnecessary margins */
+}
+
+.article-content {
+    flex: 1; /* Allow content to take the remaining space */
+    text-align: left; /* Align text to the left */
+}
+
+.article .caption {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 10px; /* Adds space below the caption */
+}
+
+
+        
+        /* .article-section {
+    margin-top: 20px;
+}
+
+.article {
+    margin-bottom: 20px;
+} */
+
+.article {
+    display: block; /* Use block layout for stacking elements */
+    margin-bottom: 20px; /* Adds space between articles */
+}
+
+.article img {
+    width: 100%; /* Full width of the container */
+    max-width: 600px; /* Optional: Limit the maximum width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: Rounded corners */
+    margin-bottom: 10px; /* Space below the image */
+}
+
+.article .caption {
+    font-style: italic; /* Italicize the caption */
+    color: #555; /* Subtle gray for captions */
+    margin-bottom: 10px; /* Adds space below the caption */
+}
+
+.article-content {
+    text-align: justify; /* Align text for cleaner presentation */
+}
+
+
+#activities-menu {
+    display: none;  /* Hide submenu by default */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;  /* Optional: to position the menu dropdown */
+    background-color: #141477;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  /* Optional: Add a shadow effect */
+    z-index: 1;  /* Ensure it appears above other content */
+}
+
+#activities-menu li {
+    padding: 10px;
+}
+
+#activities-menu li a {
+    color: #f0e9e9;
+    text-decoration: none;
+}
+
+#activities-menu li a:hover {
+    color: #dee6ee;
+    text-decoration: underline;
+}
+
+#submenuofactivities .activity-content {
+    margin-top: 0;  /* Remove top margin to make it snug against the content above */
+    display: none;  /* Hidden by default */
+    text-align: center;
+    padding: 0;  /* Remove any padding */
+}
+
+#submenuofactivities .activity-content img {
+    width: 100%; /* Ensure the image spans the full width of the container */
+    height: auto; /* Maintain the aspect ratio */
+    border-radius: 0; /* Remove any rounded corners */
+    object-fit: cover; /* Ensures the image scales well without distortion */
+    margin: 0; /* Remove margins */
+}
+
+#submenuofactivities .activity-content p {
+    font-size: 18px; /* Increased font size for readability */
+    color: #f7f5f5;
+    margin-top: 10px;
+    padding: 0 10px; /* Add padding for better text visibility on small screens */
+}
+
+
+.service-section {
+            display: none;
+            margin-bottom: 40px;
+        }
+        .active {
+            display: block;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #234a72;
+        }
+        .requirements ul {
+            list-style-type: square;
+            margin-left: 20px;
+        }
+
+        .video-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0;
+    }
+    iframe {
+        width: 100%; /* Adjust percentage for desired size */
+        max-width: 1000px; /* Set a max width */
+        height: 400px; /* Maintain aspect ratio */
+    }
+
+section {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 0;
+            color: #222186;
+            text-align: center;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul ul {
+            list-style-type: circle;
+            margin-left: 20px;
+        }
+        .quick-links a, .social-media a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 15px;
+            background-color: #2a247e;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        .quick-links a:hover, .social-media a:hover {
+            background-color: #202688;
+        }
+        blockquote {
+            font-style: italic;
+            color: #555;
+            margin: 10px 0;
+            padding-left: 10px;
+            border-left: 5px solid #2e2f85;
+        }
+        .gallery img {
+            width: 100px;
+            height: auto;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        a {
+            color: #393396;
+        }
+
+        footer {
+        text-align: center;
+        background-color: #22187a; /* Optional background color */
+        color: white; /* Optional text color */
+        padding: 1px 0;
+        position: fixed; /* Optional: to stick the footer at the bottom */
+        bottom: 0;
+        width: 100%;
+    }
+
+     /* Programs Section Styling */
+     .programs-section {
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-radius: 10px;
+    }
+
+    .programs-section h1 {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .program {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .program h2 {
+        margin-top: 0;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .program img {
+        max-width: 150px;
+        height: auto;
+        margin-right: 20px;
+        border-radius: 8px;
+    }
+
+    .program p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .program a {
+        color: #0066cc;
+        text-decoration: none;
+    }
+
+    .program a:hover {
+        text-decoration: underline;
+    }
+
+    /* Centering the map container */
+
+
+.map-container {
+    position: relative;
+    width: 50%;
+    padding-top: 50%; /* Aspect ratio of 1:1 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 4px; /* Optional: For rounded corners */
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1000%; /* Full width of the container */
+    height: 50%; /* Full height of the container */
+    border: none;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="#">
+                <img src="logo.png" alt="School Logo" style="height: 50px;">
+            </a>
+        </div>
+        <div class="menu">
+            <a href="javascript:void(0)" onclick="showSection('home')">Home</a>
+            <a href="javascript:void(0)" onclick="showSection('about')">About Us</a>
+            <a href="javascript:void(0)" onclick="showSection('programs')">Programs</a>
+            <a href="javascript:void(0)" onclick="toggleTeachersMenu()">Teachers</a>
+            <a href="javascript:void(0)" onclick="toggleNewsMenu()">News</a> 
+            <a href="javascript:void(0)" onclick="toggleActivitiesMenu()">Activities</a>
+            <a href="javascript:void(0)" onclick="showSection('services')">Services</a>
+
+            <!-- Submenu for Activities -->
+            <ul id="activities-menu" class="dropdown-menu">
+                <li><a href="javascript:void(0)" onclick="showActivityContent('brigada')">Brigada</a></li>
+                <li><a href="javascript:void(0)" onclick="showActivityContent('oplan-balik-eskwela')">Oplan Balik Eskwela</a></li>
+                <li><a href="javascript:void(0)" onclick="showActivityContent('nutrition-month')">Nutrition Month</a></li>
+                <li><a href="javascript:void(0)" onclick="showActivityContent('buwan-ng-wika')">Buwan ng Wika</a></li>
+                <li><a href="javascript:void(0)" onclick="showActivityContent('history-month')">History Month</a></li>
+                <li><a href="javascript:void(0)" onclick="showActivityContent('english-month')">English Month</a></li>
+            </ul>
+            
+            <!-- Activity Content (Initially Hidden) -->
+            <div id="submenuofactivities">
+                <div class="activity-content" id="brigada-content">
+                    <img src="brigada.PNG" alt="Brigada">
+                    <p>Brigada Eskwela 2024 is a nationwide initiative aimed at preparing public schools for the upcoming school year. It encourages the whole community to join efforts in cleaning, repairing, and improving school facilities. Teachers, students, parents, and even local government units are encouraged to volunteer for the event. This year, the theme focuses on fostering collaboration and promoting the importance of education in nation-building. Volunteers help by painting classrooms, fixing furniture, and clearing school grounds. Educational materials are also organized and prepared to ensure that students have everything they need for the first day of class. The program has a strong emphasis on environmental sustainability by promoting eco-friendly practices like waste segregation and tree planting. Through Brigada Eskwela, the Department of Education aims to instill the value of bayanihan or communal unity in the minds of the Filipino youth. The event also strengthens the partnership between the school, parents, and the local community. Finally, Brigada Eskwela 2024 serves as a reminder that preparing the learning environment is essential for fostering the future of Filipino students.</p>
+                </div>
+                <div class="activity-content" id="oplan-balik-eskwela-content">
+                    <img src="oplan.PNG" alt="Oplan Balik Eskwela">
+                    <p>Oplan Balik Eskwela 2024 is a government-led initiative to ensure that students are ready and able to attend school at the beginning of the school year. It aims to address any challenges that families may face in preparing their children for school. The program coordinates with different government agencies, such as the Department of Education (DepEd), local government units (LGUs), and various non-governmental organizations (NGOs). Volunteers assist in providing school supplies, uniforms, and other essential materials to students in need. Oplan Balik Eskwela also offers free medical check-ups to ensure students are healthy before returning to school. It encourages community participation to create an organized and supportive environment for students. The program includes setting up help desks in schools and government offices to assist parents with enrollment and school requirements. In addition, it provides guidance on how to follow safety protocols, especially in the context of the pandemic. Through Oplan Balik Eskwela, the government seeks to reduce barriers to education, making it easier for every child to attend school. The initiative emphasizes that a successful school year starts with full community support and preparation.</p>
+                </div>
+                <div class="activity-content" id="nutrition-month-content">
+                    <img src="nutrition.PNG" alt="Nutrition Month">
+                    <p>Nutrition Month 2024 in the Philippines will be observed throughout the month of July, with the theme **"Sa Pagkain ng Wasto at Tamang Ehersisyo, iwas sakit, tayo’y magkaisa!"** (In Proper Nutrition and Exercise, Let’s Unite to Prevent Illness!). The celebration aims to raise awareness about the importance of proper nutrition and an active lifestyle in maintaining good health. Schools, communities, and government agencies organize activities such as health seminars, cooking demonstrations, fitness challenges, and nutrition education campaigns. It also encourages individuals to make healthier food choices and engage in regular physical activities to combat malnutrition, obesity, and other lifestyle-related diseases. In 2024, the focus will be on the importance of combining balanced diets with consistent exercise to promote overall well-being. Nutrition Month is an opportunity to promote nutrition literacy among the youth, especially in schools, to help students understand the value of eating nutritious meals. Additionally, it highlights the role of local foods in achieving a healthy and balanced diet. Various food companies and nutrition advocates also participate in spreading helpful nutrition information to the public. Through Nutrition Month, the government and organizations hope to inspire positive changes in dietary habits across the country. The celebration ultimately promotes healthier communities for the future of the nation.</p>
+                </div>
+                <div class="activity-content" id="buwan-ng-wika-content">
+                    <img src="buwan.PNG" alt="Buwan ng Wika">
+                    <p>Buwan ng Wika 2024 (Language Month 2024) will be celebrated in the Philippines throughout the month of August, with the theme **"Wikang Filipino: Kasangkapan sa Pagpapayaman ng Kultura at Pagkakaisa"** (Filipino Language: Tool for Enriching Culture and Unity). This annual celebration emphasizes the importance of promoting the Filipino language as a tool for preserving and enriching Filipino culture and fostering unity among Filipinos, regardless of region or dialect.
+
+                        During Buwan ng Wika, various activities are held in schools, communities, and government offices, such as cultural presentations, poetry and essay writing contests, theater performances, and language workshops. These activities encourage the use of Filipino in daily communication and highlight its role in the nation’s identity and progress. The month-long event also includes promoting the appreciation of the different Philippine languages and dialects, emphasizing their value in enriching the diverse culture of the country.
+                        
+                        In 2024, the celebration aims to inspire the youth to embrace their native language and take pride in their cultural heritage. Schools often hold storytelling sessions, research competitions, and exhibits that showcase the history and evolution of the Filipino language. The focus is on strengthening the connection of the Filipino people through their shared language, fostering solidarity and mutual understanding. Through Buwan ng Wika, Filipinos are reminded that language is not only a medium of communication but also a key to preserving cultural traditions and ensuring a united future.</p>
+                </div>
+                <div class="activity-content" id="history-month-content">
+                    <img src="historyyyyy.PNG" alt="History Month">
+                    <p>**History Month 2024** in the Philippines will be commemorated in September, focusing on celebrating the country's rich history and the significant events, figures, and movements that shaped its national identity. The theme for 2024 is **"Kasaysayan: Pag-alala at Pagtuturo ng mga Mahahalagang Pagyabong ng Bansa"** (History: Remembering and Teaching the Significant Growth of the Nation). The month-long celebration aims to honor the pivotal moments in Philippine history and foster a deeper understanding of the struggles and triumphs that led to the nation's independence, freedom, and democratic values.
+
+                        During History Month, activities such as lectures, discussions, and exhibits about important historical events are conducted in schools, universities, and government institutions. Historical documentaries and films about national heroes, revolutionaries, and milestones like the Philippine Revolution, the Declaration of Independence, and World War II are often shown to the public. These activities serve as a reminder of the sacrifices made by past generations and the importance of preserving history for future generations.
+                        
+                        History Month 2024 will also spotlight the contributions of unsung heroes and ordinary Filipinos whose actions were pivotal to the nation's development. It is a time to reflect on the country’s challenges and achievements, and to strengthen the Filipino people's collective consciousness about their shared past. Throughout the celebration, there will be emphasis on the role of youth in learning about and preserving Philippine history, ensuring that the lessons of the past continue to guide the nation forward.
+                        
+                        Special programs may also include interactive museum tours, history quizzes, and public forums with historians and cultural experts. The ultimate goal is to inspire pride in the Filipino heritage and to educate the public on how history informs the present and shapes the future.</p>
+                </div>
+                <div class="activity-content" id="english-month-content">
+                    <img src="english.PNG" alt="English Month">
+                    <p>**English Month 2024** in the Philippines will be celebrated throughout the month of November, with a focus on promoting the importance of the English language in communication, education, and global interactions. The theme for 2024 is **"Empowering Communication: Building Bridges Through the English Language"**. This theme emphasizes the role of English in fostering better understanding, collaboration, and connections both within the country and internationally.
+
+                        During English Month, schools, universities, and other institutions organize a variety of activities aimed at improving language proficiency and appreciation for English. These include speech competitions, storytelling contests, debate tournaments, and writing workshops, all designed to encourage students to express themselves confidently in English. Educational seminars and webinars on effective communication skills may also be conducted to enhance public speaking, writing, and reading comprehension.
+                        
+                        The celebration highlights the significance of English not only as a medium of instruction but also as a tool for professional growth and international collaboration. It is an opportunity to recognize the achievements of individuals who have excelled in using English in fields such as literature, journalism, business, and diplomacy.
+                        
+                        English Month 2024 will also focus on the integration of creative arts, with activities such as poetry readings, drama performances, and English language film screenings. These events aim to foster a deeper appreciation for English literature and the arts, while encouraging participants to explore the cultural diversity and richness of the English-speaking world.
+                        
+                        Ultimately, English Month serves as a reminder of the crucial role that language plays in building bridges across cultures and ensuring effective communication in an increasingly globalized world. It is also an opportunity to inspire students and professionals alike to continuously improve their English language skills for personal and professional success.</p>
+                </div>
+            </div>
+            
+            
+
+            <ul id="news-menu" class="dropdown-menu">
+                <li><a href="javascript:void(0)" onclick="showSection('dugong-maharlika-2018-2019')">Dugong Maharlika 2018-2019</a></li>
+                <li><a href="javascript:void(0)" onclick="showSection('dugong-maharlika-2017-2018')">Dugong Maharlika 2017-2018</a></li>
+            </ul>
+
+             <!-- Article Section -->
+    <div id="dugong-maharlika-2018-2019" class="article" style="display:none;">
+        <h2>Daan patungo sa Nasyonal ni Eliza Mei Ongsioco</h2>
+        <img src="news1.PNG" alt="Eliza Mei Ongsioco">
+        <p class="caption">Picture of  Christina N. Matabang</p>
+        <div class="article-content">
+            <p>Hindi matatawaran ang angking galing at husay na ipinamalas ng mag-aaral sa ika- anim na baiting na si Eliza Mei M. Ongsioco o mas kilala sa katawagang “shobe”. Ikinararangal ng mababang paaralan ng Buhay na Tubig Elementary School- Maharlika Annex si Ongsioco sapagkat siya ang magrerepresenta sa buong dibisyon ng Imus sa National Festival of Talents 2019 sa larangan ng pagsulat at pagbigkas ng tula noong Enero 28 hanggang Pebrero 1, 2019 sa lungsod ng Dagupan.</p>
+            <p>Siya ay masusing sinanay ng isa sa mga magaling at bihasang guro sa Filipino na walang iba kundi si Gng. Marilyn de Vera.</p>
+            <p>“Madali siyang turuan, pursigido at determinadong matuto kaya sa totoo lang di ako nahirapan”, saad ng tagapagsanay.</p>
+            <p>Ayon pa kay Gng. De Vera, noon pa lang ay kinakitaan na niya si Shobe ng potensiyal at talento sa pagsusulat bukod pa na ito ay umabot din ng regional level sa Science Writing-English contest.</p>
+            <p>“Di ko man naiuwi o nakamit ang gantimpala o panalo, masaya akong naibahagi ko ang aking talento. Higit sa lahat, masayang- masaya ako dahil sa suportang ipinaramdam sa akin ng mga mahahalagang tao sa paligid ko, yun ang isang bagay na kahit kailan ay di matatawaran ng kahit ano pa man, ayon kay Shobe.</p>
+            <p>Naniniwala din daw siya na ang kabiguan ay di hadlang para sumuko sa laban, bagkus isa itong daan upang maabot ang rurok ng tagumpay.</p>
+        </div>
+         <!-- Article 2 -->
+    <h2>Maharlikans nagdonate ng 379 bote sa hardin</h2>
+    <img src="news2.PNG" alt="379 Bottles Donation">
+    <p class="caption">Picture of Chelsea Faye B. Roilo</p>
+    <div class="article-content">
+        <p> Inabot sa 379 plastic bottles ang dinonate n mga magaaral sa Maharlika Annex para matamnan ng mga punla sa hardin. Hinikayat ni Jenny M. Mancenido, Gulayan sa Paaralan Coordinator, ang mga estudyante na makibaagi sa papapaigting ng pagreresiklo sa paaralan noon Sep. 15, 2018. Bukod sa pagbibiay, tumulong pa ang ilang mga magulang at kabataan sa papipintura ng 259 na 1.5 coke bottles at 120 galon ng mineral water. “Natugunan ng kabutihang loob nila ang problema sa kakulangan ng paso ng paaralan, marami na ngayon ang mapagtatamnan ng mga halaman,” ani Mancenido..</p>
+    </div>
+
+    <!-- Article 3 -->
+    <h2>Blue belter tiklop sa White belter</h2>
+    <img src="news3.PNG" alt="Blue belter vs White belter">
+    <p class="caption">Picture of Chiren G. Hitosis</p>
+    <div class="article-content">
+        <p> Hindi na ako nagtataka, nakikinig kasi si Macazo at masipag magtraining, kaya niyang pabagsakin kahit blue belt pa yang kalaban niya, kaya niya yan,” ani Maharlika Coach Chiren G. Hitosis. Samantala, napaluhod sa huling bahagi ng Round 1 ang 12 taong gulang nang makalasap ng side kick sa dibdib mula kay Manansala, 6-4 pabor sa BL1. “Magaling yung nakalaban ko, tapos blue belt pa, ako white belt lang kaya kabadong-kabado ako kanina, first time ko rin sumali sa contest, pero nung pinakinggan ko ang mga bilin ni coach na wag magpapatumba at wag lalabas…nawala na yung kaba ko,” ani Macazo..</p>
+    </div>
+
+    <!-- Article 4 -->
+    <h2>Pagtitipon ng mga Maharlikan Alumni</h2>
+    <img src="news4.PNG" alt="Maharlikan Alumni Gathering">
+    <p class="caption">Picture of Alumni Gathering</p>
+    <div class="article-content">
+        <p>Matagumpay na naidaos ang kauna-unahang alumni homecoming ng Maharlika Annex noong Oktubre 10, 2018. Dinaluhan ito ng higit sa 200 alumni mula batch 2000 hanggang 2018.</p>
+    </div>
+
+    <!-- Article 5 -->
+    <h2>Isang Dekada ng Serbisyo: Maharlika Annex</h2>
+    <img src="news5.PNG" alt="10 Years Anniversary">
+    <p class="caption">Picture of 10th Year Celebration</p>
+    <div class="article-content">
+        <p>Ipagdiriwang ng Maharlika Annex ang kanilang ika-10 anibersaryo bilang isang paaralan noong Disyembre 12, 2018. Tampok sa pagdiriwang ang iba’t ibang pagtatanghal ng mga estudyante at guro.</p>
+    </div>
+
+    <!-- Article 6 -->
+    <h2>Balik-Eskwela 2018: Handa na ang Maharlikans</h2>
+    <img src="news6.PNG" alt="Back to School 2018">
+    <p class="caption">Picture of Balik-Eskwela Program</p>
+    <div class="article-content">
+        <p>Sa pagbubukas ng pasukan noong Hunyo 4, 2018, tiniyak ng pamunuan ng Maharlika Annex ang kaligtasan at kaginhawaan ng mga estudyante. Idinaos ang isang simpleng programa upang batiin ang mga mag-aaral sa pagbabalik nila sa paaralan.</p>
+    </div>
+    </div>
+
+
+    <!-- Dugong Maharlika 2017-2018 Section -->
+<div id="dugong-maharlika-2017-2018" class="article-section" style="display:none;">
+    <div class="article">
+        <h2>Maharlika pasok sa Brigada Eskwela regionals</h2>
+        <img src="news1.1.PNG" alt="Article 1 Image">
+        <p class="caption">Caption for Article 1</p>
+        <div class="article-content">
+            <p> Nakalusot ang BNTES-Maharlika Annex sa regional level competition ng Best Brigada Eskwela Implementing Schools matapos muling masungkit ang first rank sa Division Best Brigada Eskwela Implementer - Elementary Medium Schools Category para sa school year 2017-2018. Opisyal na naging ganap ang pagkapanalo ng Maharlika matapos ilabas ng Department of Education Division of Imus City and Division Memorandum No. 203, series 2017 noong Agosto 4, 2017.
+                Naitala ng Maharlika Annex ang pagiging Back-to-Back Champions ng Brigada Eskwela dahil na rin sa kooperasyon at pagtutulungan ng lahat ng mga guro, mag-aaral, mga magulang, alumni, at tanggapan ng Barangay Maharlika.
+                Lubos rin ang pasasalamat ng Buhay na Tubig Elementary School - Maharlika Annex sa lahat ng nakibahagi at sumuporta sa isinagawang Brigada Serye ng paaralan noong Mayo 15-20, 2017.
+                                     “Masaya kami dahil ilang taon ng sunod-sunod ang pagkapanalo ng school, halos lahat ng teachers na assigned sa iba’t ibang committee ay nagkaisa para manalo sa Brigada Eskwela, maintain lang natin palagi ang kagandahan ng paaralan,” ani Rustom Ongca, guro.
+                                      Hinihiling ng tanggapan ng eskwelahan ang patuloy na partisipasyon at pakikipagtulungan ng Maharlikans upang patuloy na mamayagpag ang Maharlika sa Brigada Eskwela.</p>
+        </div>
+    </div>
+    <div class="article">
+        <h2>Maharlikan Skawts dumalo sa apat na araw na Council wide Jamboree sa Naic, Cavite</h2>
+        <img src="news2.2.PNG" alt="Article 2 Image">
+        <p class="caption">Maharlikan Skawts dumalo sa apat na araw na Council wide Jamboree sa Naic, Cavite </p>
+        <div class="article-content">
+            <p> Ang pagdalo sa ganitong mga pagtitipon at paglahok sa iba't ibang gawain ay talagang magpapaunlad sa kanilang kakayahan. Ang nasabing pagtitipon ay dinaluhan nina Marky Angelo Pichay and Norman Paloma kasama ang isang guro na si G. Rodio Y. Ilao na ginanap sa San Roque Naic, Cavite na nagsimula noong ika-2 ng Nobyembre na tumagal hanggang ika-5 ng Nobyembre</p>
+        </div>
+    </div>
+    <div class="article">
+        <h2>Pagsusumikap para sa karangalan</h2>
+        <img src="news3.3.PNG" alt="Article 3 Image">
+        <p class="caption">Caption for Article 3</p>
+        <div class="article-content">
+            <p>  Paglalaro ng cellphone at basketball ang hilig gawin ng binansagang Kaede Rukawa ng Maharlika na si Timothy John Napa, anak nina Annie Rose Napa at Ronald Napa.
+                Matiyagang nageensayo si TJ araw-araw, mula ala-una hanggang alas-singko ng hapon. Naging sisiw na lang para sa kaniya ang basketball dahil sa kaniyang mga pagsusumikap.
+            Nagsimula ang hilig sa basketball ng Maharlikans point-guard noong nasa Baitang - IV pa lamang siya. Nahumaling siya at naudyok sumali sa basketball varsity team ng Maharlika nang makakita siya ng mga nagbabasketball noong musmos pa lamang siya.
+             Napili si Napa na maging kinatawan sa basketball ng Klaster 1 sa Imus City Meet na ginanap noong Oktubre 7, 2017.
+            Patuloy na nagsusumikap ang 11 taong gulang na basketbolista para mabigyang karangalan ang BNTES-Maharlika Annex sa larangan ng basketball.</p>
+        </div>
+    </div>
+    <div class="article">
+        <h2>Maharlikans pasok sa RFT 2017</h2>
+        <img src="news4.4.PNG" alt="Article 4 Image">
+        <p class="caption">Caption for Article 4</p>
+        <div class="article-content">
+            <p>Lusot sa Regional Festival of Talents 2017 ang mag-aaral ng BNTES-Maharlika Annex na si Michaela Chryst S. Siron matapos magkamit ng gintong medalya sa Pandivisyong pista ng mga talento sa Filipino - kategorya ng Dagliang Talumpati sa Elementary na ginanap sa Alapan 1 Elem. School noong Oktubre 6, 2017.
+                Ginawaran ang pambato ng Maharlika ng unang karangalan matapos mahusay na sagutin ang katanungan ng hurado na may paksang, “Wikang Filipino bilang susi sa pagbabago”.
+                           
+                             “Hindi na iniisip ng mga OFW na nasa panganib na ang kultura ng Pilipinas dahil mas binibigyang prioridad nila ang wikang Ingles,” tugon ni Siron sa tanong ng hurado.
+                Muntik ng malagay sa alanganin ang panalo ng mag-aaral na mula sa Baitang VI - Narra ng magkamali sa paganunsyo ng nagwagi ang itinalagang speaker ng patimpalak.
+                
+                              “Kinabahan po ako nung una kasi akala ko po hindi ako mananalo, tinawag po kasi ng speaker and Buhay na Tubig eh nasa Chambers Theater po ang contestant nila,” ani Siron.
+                Pinaliwanag ng organizers ng kompetisyon na may mali lamang sa papel na naiabot sa speaker.“Hindi ko papabayaan ang laban ko sa dagliang talumpati, kahit na wala na akong sapat na oras para sa iba ko pang responsibilidad sa school, tutal hindi naman required sa contest ko na ito ang bugbugang pageensayo; sabi po kasi ng judge mas mainam daw po na walang kinakabisadong script para mas maexpand daw po ang thoughts,” ani Siron.
+                
+                              Samantala, problemado ngayon ang 10 taong gulang na mag-aaral sapagkat pasok din siya sa Regional School Press Conference 2017.“If ever po magsabay ang RFT at RSPC sa November, ipapaubaya ko na lamang po sa mga magulang ko ang desisyon kung saan po ako sasali, sila po kasi ang mas nakakaalam kung ano po ang mas makakabuti para sa akin,” ani Siron</p>
+        </div>
+    </div>
+    <div class="article">
+        <h2>  K-3 developmentally appropriate practices (DAP) early language literacy and numeracy SLAC</h2>
+        <img src="news5.5.PNG" alt="Article 5 Image">
+        <p class="caption">Caption for Article 5</p>
+        <div class="article-content">
+            <p> K-3 developmentally appropriate practices (DAP) early language literacy and numeracy SLAC was conducted last october 23-27, 2017. This said slac tackle different topics that may help to teachers and primary pupils to both will be benefited with the diff. Suggested activities.</p>
+        </div>
+    </div>
+</div>
+            
+            <!-- Dropdown menu for Teachers -->
+            <ul id="teachers-menu" class="dropdown-menu">
+                <li><a href="javascript:void(0)" onclick="showGrade('kinder')">Kinder</a></li>
+                <li><a href="javascript:void(0)" onclick="showGrade('grade1')">Grade 1</a></li>
+                <li><a href="javascript:void(0)" onclick="showGrade('grade2')">Grade 2</a></li>
+                <li><a href="javascript:void(0)" onclick="showGrade('grade3')">Grade 3</a></li>
+                <li><a href="javascript:void(0)" onclick="showGrade('grade4')">Grade 4</a></li>
+                <li><a href="javascript:void(0)" onclick="showGrade('grade5')">Grade 5</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Grade Content Sections -->
+<div id="grade-content">
+    <div id="kinder" class="grade-section" style="display:none;">
+        <!-- Kinder Content -->
+        <h2>Kinder</h2>
+        <img src="kinder.PNG" alt="Kinder" style="width:1000px;height:auto;">
+        <p>Kinder, or Kindergarten, is the first formal year of education for young children, typically around ages 5 to 6. It serves as an introduction to school, helping children adjust to structured learning environments. In Kinder, children begin to develop foundational skills such as early literacy, numeracy, and social interaction. Teachers focus on teaching basic concepts like recognizing letters, numbers, shapes, and colors, as well as fostering communication and motor skills. The goal is to create a nurturing and engaging atmosphere that prepares children for the transition to higher grades, both academically and socially.</p>
+    
+        <!-- Teacher 1 -->
+        <div class="teacher-info">
+            <img src="k1.PNG" alt="Teacher 1" style="width:100px;height:auto; border-radius: 50%; margin-right: 20px;">
+            <div class="teacher-details">
+                <h3>Teacher: Eliza L. Dolorito</h3>
+                <p>Section: Melon & Mangoisten</p>
+            </div>
+        </div>
+    
+        <!-- Teacher 2 -->
+        <div class="teacher-info">
+            <img src="k2.PNG" alt="Teacher 2" style="width:100px;height:auto; border-radius: 50%; margin-right: 20px;">
+            <div class="teacher-details">
+                <h3>Teacher: MARY JANE J. PATALUD</h3>
+                <p>Section:Mangga & Saging </p>
+            </div>
+        </div>
+    
+        <!-- Teacher 3 -->
+        <div class="teacher-info">
+            <img src="k3.PNG" alt="Teacher 3" style="width:100px;height:auto; border-radius: 50%; margin-right: 20px;">
+            <div class="teacher-details">
+                <h3>Teacher: normina a. usop</h3>
+                <p>Section: Pakwan & Abokado</p>
+            </div>
+        </div>
+    
+        <!-- Teacher 4 -->
+        <div class="teacher-info">
+            <img src="k4.PNG" alt="Teacher 4" style="width:100px;height:auto; border-radius: 50%; margin-right: 20px;">
+            <div class="teacher-details">
+                <h3>Teacher: ANALYN L. LOREZCA</h3>
+                <p>Section: Ubas & Dalandan </p>
+            </div>
+        </div>
+    
+        <!-- Teacher 5 -->
+        <div class="teacher-info">
+            <img src="k5.PNG" alt="Teacher 5" style="width:100px;height:auto; border-radius: 50%; margin-right: 20px;">
+            <div class="teacher-details">
+                <h3>Teacher: NELIDA A. CALINAYA</h3>
+                <p>Section: Pinya & Guyabano</p>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    <div id="grade1" class="grade-section" style="display:none;">
+        <h2>Grade 1</h2>
+        <img src="grade1.PNG" alt="Grade 1" style="width:1000px;height:auto;">
+        <p>Grade 1 is a foundational year where students begin their journey in formal education. In this grade, the focus is on building basic literacy and numeracy skills, such as recognizing letters, learning to read, and developing writing abilities. Students also start to understand simple math concepts like addition, subtraction, and number sequencing. The classroom environment is designed to foster a love for learning through interactive lessons and hands-on activities. By the end of Grade 1, students should be able to read simple sentences and perform basic arithmetic operations</p>
+    </div>
+    <div id="grade2" class="grade-section" style="display:none;">
+        <h2>Grade 2</h2>
+        <img src="grade2.PNG" alt="Grade 2" style="width:1000px;height:auto;">
+        <p>Grade 2 expands on the skills learned in Grade 1 by introducing more complex math concepts and deeper reading comprehension exercises. In math, students begin to explore addition and subtraction with larger numbers, as well as the concept of place value. They also develop stronger reading skills, learning to read longer sentences and paragraphs, with an emphasis on understanding the meaning of texts. Writing becomes more structured, with students learning to write simple sentences and paragraphs. This grade emphasizes building confidence in both math and language arts, preparing students for more advanced concepts in the future.</p>
+    </div>
+    <div id="grade3" class="grade-section" style="display:none;">
+        <h2>Grade 3</h2>
+        <img src="grade3.PNG" alt="Grade 2" style="width:1000px;height:auto;">
+        <p> In Grade 3, students focus on strengthening both their math and language arts skills. Math instruction becomes more challenging with the introduction of multiplication and division, along with the continued practice of addition and subtraction. Language arts instruction includes reading comprehension strategies, vocabulary building, and the development of writing skills, including simple essays. This year also marks the introduction of more detailed literature, where students begin to analyze characters, plot, and themes. By the end of Grade 3, students are expected to write coherent paragraphs and solve basic word problems in math.</p>
+    </div>
+    <div id="grade4" class="grade-section" style="display:none;">
+        <h2>Grade 4</h2>
+        <img src="grade4.PNG" alt="Grade 2" style="width:1000px;height:auto;">
+        <p>Grade 4 brings a greater emphasis on critical thinking and problem-solving in both math and other subjects. In math, students explore fractions, learn about basic geometry, and begin working with multi-step word problems. Science and social studies become more integrated into the curriculum, with students studying topics like ecosystems, the water cycle, and historical events. Writing instruction is expanded to include writing reports and explanations of scientific concepts. Overall, Grade 4 is a time for students to build upon their previous knowledge and apply it to more complex subjects.</p>
+    </div>
+    <div id="grade5" class="grade-section" style="display:none;">
+        <h2>Grade 5</h2>
+        <img src="garde5.PNG" alt="Grade 2" style="width:1000px;height:auto;">
+        <p>: Grade 5 is a transition year where students tackle more advanced topics in both math and language arts. Math instruction covers decimal operations, percentages, and basic data analysis, while students continue to practice multi-step word problems. In language arts, students refine their writing by working on essays, stories, and persuasive texts, with an emphasis on grammar and sentence structure. The curriculum also expands to include in-depth studies of science and history, preparing students for the more specialized subjects in middle school. By the end of Grade 5, students are expected to have a strong grasp of mathematical concepts and be able to write more detailed and organized compositions.</p>
+    </div>
+    <div id="grade6" class="grade-section" style="display:none;">
+        <h2>Grade 6</h2>
+        <img src="grade6.PNG" alt="Grade 2" style="width:1000px;height:auto;">
+        <p>Grade 6 prepares students for the academic challenges of junior high by introducing more advanced topics in math, writing, and critical thinking. In math, students delve into concepts such as ratios, percentages, and algebraic thinking. Writing instruction focuses on crafting longer, more complex essays, research reports, and creative writing projects. Science and social studies lessons become more focused on analytical thinking, where students explore topics like the history of civilizations and scientific investigations. This grade emphasizes self-discipline and responsibility as students work on larger projects, helping them build the skills needed for success in higher education.</p>
+    </div>
+   
+</div>
+
+    <!-- Home Section -->
+    <div id="home" class="content section active">
+        <h1>Welcome to Maharlika Integrated School</h1>
+        <p>Providing quality education for the future.</p>
+
+        <div class="video-container">
+            <iframe 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/LjFcM_n9QU0" 
+                title="YouTube video" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+        
+
+<section id="announcements">
+    <h2>Announcements / News</h2>
+    <p><strong>Important Announcement:</strong> Maharlika Integrated School will be holding its Annual Recognition Day on December 15, 2024. This event will honor the achievements of our students in academics, sports, and extracurricular activities. All parents, students, and alumni are invited to attend and celebrate the success of our learners.</p>
+    <p><strong>New Enrollment Schedule:</strong> The enrollment period for the upcoming school year (2025-2026) will begin on January 5, 2025, and end on February 28, 2025. Please visit the Enrollment System on our website for more details and to secure a slot for your child. Early enrollment is highly encouraged to avoid delays.</p>
+    <p><strong>School Holiday Notice:</strong> Please be advised that the school will be closed from December 20, 2024, to January 2, 2025, for the holiday break. Classes will resume on January 3, 2025.</p>
+    <p>Stay updated by following us on our social media platforms for more announcements and updates!</p>
+</section>
+
+
+<section id="programs">
+    <h2>Programs / Courses</h2>
+    <ul>
+        <li><strong>Kinder:</strong> Holistic foundation for early learners focusing on basic literacy, numeracy, and social skills.</li>
+        <li><strong>Grade 1 to Grade 6:</strong> Comprehensive elementary education with focus on core subjects such as:
+            <ul>
+                <li>Mathematics</li>
+                <li>Science</li>
+                <li>English</li>
+                <li>Filipino</li>
+                <li>Araling Panlipunan</li>
+                <li>Edukasyon sa Pagpapakatao (ESP)</li>
+                <li>Music, Arts, Physical Education, and Health (MAPEH)</li>
+            </ul>
+        </li>
+    </ul>
+</section>
+
+
+
+<section id="quick-links">
+    <h2>Quick Links</h2>
+    <div class="quick-links">
+        <a href="#">Enrollment System</a>
+        <a href="#">Student Portal</a>
+        <a href="#">Faculty Portal</a>
+        <a href="#">Library Resources</a>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Information</h2>
+    <p><strong>Address:</strong> Ph.8 Avenida Plaza Brgy. Maharlika</p>
+    <p><strong>Contact Number:</strong>(046) - 454 - 3615</p>
+    <p><strong>Email:</strong> info@maharlikaintegratedschool.edu.ph</p>
+    <p><a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3862.7719403844403!2d121.05048577083731!3d14.497777448617265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cf3f9565779f%3A0xa9a77b54ae88be71!2sMaharlika%20Integrated%20School!5e0!3m2!1sen!2sph!4v1732202570342!5m2!1sen!2sph" target="_blank">View Map</a></p>
+</section>
+
+
+<section id="testimonials">
+    <h2>Testimonial Section</h2>
+    <blockquote>"Ang Maharlika Integrated School ang naging pundasyon ng aking tagumpay. Mahuhusay ang mga guro at maganda ang programa nila." - Juan Dela Cruz, Alumni</blockquote>
+    <blockquote>"Dito ko natutunan ang disiplina at pagpapahalaga sa edukasyon. Salamat, Maharlika Integrated School!" - Maria Santos, Parent</blockquote>
+    <blockquote>"Masaya ang bawat araw sa paaralan. Maraming activities na talagang nakaka-inspire." - Jose Ramos, Student</blockquote>
+</section>
+
+
+<section id="gallery">
+    <h2>Photo Gallery</h2>
+    <div class="gallery">
+        <img src="sports.PNG" alt="School Activity 1">
+        <img src="gulayan.PNG" alt="School Activity 2">
+        <img src="KK1.PNG" alt="School Activity 3">
+        <img src="KK2.PNG" alt="School Activity 4">
+        <img src="KK3.PNG" alt="School Activity 5">
+        <img src="KK4.PNG" alt="School Activity 5">
+        <img src="KK5.PNG" alt="School Activity 5">
+        <img src="KK6.PNG" alt="School Activity 5">
+        <img src="KK7.PNG" alt="School Activity 5">
+        <img src="KK8.PNG" alt="School Activity 5">
+        <img src="KK9.PNG" alt="School Activity 5">
+        <img src="KK10.PNG" alt="School Activity 5">
+
+    </div>
+</section>
+
+
+<section id="social-media">
+    <h2>Social Media Links</h2>
+    <div class="social-media">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Google</a>
+        <a href="#">Weebly</a>
+        
+    </div>
+</section>
+
+<div class="map-container">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3862.7719403844403!2d121.05048577083731!3d14.497777448617265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cf3f9565779f%3A0xa9a77b54ae88be71!2sMaharlika%20Integrated%20School!5e0!3m2!1sen!2sph!4v1732202570342!5m2!1sen!2sph"
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+
+
+
+<footer>
+    <p>&copy; 2024 MIS. All rights reserved.</p>
+</footer>
+    
+
+     <!-- Services Section -->
+     <div id="services" class="service-section">
+        <h2>Enrollment Services</h2>
+        <p><strong>Who may avail of the Services?</strong><br>
+            Kinder to 6 (5 years old and above)</p>
+        <p><strong>Schedule of Availability of the Service:</strong><br>
+            Oplan Palistahan every last Saturday of January<br>
+            Brigada Eskwela Week and two (2) weeks before the start of academic year</p>
+        <div class="requirements">
+            <p><strong>Requirements for Enrollee:</strong></p>
+            <ul>
+                <li><strong>Incoming Kinder</strong>
+                    <ul>
+                        <li>Birth Certificate</li>
+                        <li>Barangay Certificate</li>
+                        <li>Report Card from previous Day Care Center</li>
+                    </ul>
+                </li>
+                <li><strong>Grades 1 to 6</strong>
+                    <ul>
+                        <li>Form 137 (Report Card) from previous grade level</li>
+                        <li>Barangay Certificate</li>
+                    </ul>
+                </li>
+                <li><strong>Transferees</strong>
+                    <ul>
+                        <li>Birth Certificate</li>
+                        <li>Barangay Certificate</li>
+                        <li>Form 137 (Report Card) from previous grade level</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="service-info">
+            <h2>Recruitment, Evaluation & Selection Procedure</h2>
+            <h3>Who may avail of the Service?</h3>
+            <p>All teacher applicants who meet the required qualifications</p>
+            
+            <h3>Schedule of Availability of the Service:</h3>
+            <ul>
+                <li><strong>January:</strong> Filing of Application</li>
+                <li><strong>March:</strong> Interview of Applicants</li>
+                <li><strong>April:</strong> Ranking and Submission of Rank List</li>
+            </ul>
+            
+            <h3>Requirements for Applicant:</h3>
+            <ul>
+                <li>Application letter</li>
+                <li>CSC Form 212 (revised 2005) in two (2) copies with the latest 2 x 2 I.D. picture</li>
+                <li>Certified photocopy of ratings obtained in LET and PBET</li>
+                <li>Certified photocopy of the PRC Certificate of Registration/ License</li>
+                <li>Certified copies of Transcript of Records</li>
+                <li>Copies of the service record, performance rating, and school clearance for those with teaching experience</li>
+                <li>Certificates of specialized training, if any</li>
+            </ul>
+            
+            <h3>How to avail of the Service?</h3>
+            <p>Submit a written application with the required documents to the nearest elementary or secondary school head.</p>
+        
+            <hr>
+        
+            <h2>Request of FORM 137 & Other Related Documents</h2>
+            <h3>Who may avail of the Service?</h3>
+            <p>Current students and alumni</p>
+            
+            <h3>Schedule of Availability of the Service:</h3>
+            <p>Monday to Friday, 8:00 AM - 12:00 PM</p>
+        
+            <h3>Requirements for Applicant:</h3>
+            <ul>
+                <li>Present any of the following:
+                    <ul>
+                        <li>Request Form</li>
+                        <li>Diploma</li>
+                        <li>Birth Certificate</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Service Provider</h3>
+            <p>Receive, assess and evaluate the pertinent data presented</p>
+        
+            <h3>Duration of Activity</h3>
+            <p>Maximum of five (5) working days</p>
+        
+            <h3>Person In Charge</h3>
+            <p>Guidance Personnel</p>
+        
+            <hr>
+        
+            <h2>Filing of Complaints</h2>
+            <h3>Requirements for Applicant:</h3>
+            <ul>
+                <li>Full name and address of the complainant</li>
+                <li>Full name and address of the person complained of, as well as his position in the school</li>
+                <li>A narration of the relevant and material facts which show the acts or omissions as allegedly committed by the person</li>
+                <li>Certified true copies of documentary evidence and affidavits of his witnesses, if any</li>
+                <li>Complaint shall be under oath</li>
+            </ul>
+        
+            <h3>How to avail of the Service?</h3>
+            <p>File the complaint along with the requirements at the Office of the Principal.</p>
+        
+            <h3>Service Provider</h3>
+            <p>Receive the complaint and other documents.</p>
+        
+            <h3>Person In Charge</h3>
+            <p>School Principal</p>
+        </div>
+        
+
+    </div>
+
+    <!-- About Us Section -->
+    <div id="about" class="about-section section">
+        <h1>About Us</h1>
+        
+        <!-- History ng Paaralan -->
+        <div class="sub-section">
+            <img src="history.PNG" alt="History of School">
+            <div class="sub-section-content">
+                <h2>School History</h2>
+                <p>Maharlika Integrated School (MIS) in Taguig began as an annex of Silangan Elementary School and officially started in 2000...</p>
+            </div>
+        </div>
+        
+        <!-- Vision -->
+        <div class="sub-section">
+            <img src="vision.PNG" alt="Vision">
+            <div class="sub-section-content">
+                <h2>Vision</h2>
+                <p>We dream of Filipinos who passionately love their country and whose values enable them to realize their full potential...</p>
+            </div>
+        </div>
+
+        <!-- Mission -->
+        <div class="sub-section">
+            <img src="missions.PNG" alt="Mission">
+            <div class="sub-section-content">
+                <h2>Mission</h2>
+                <p>To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education...</p>
+            </div>
+        </div>
+        
+        <!-- Core Values -->
+        <div class="sub-section">
+            <img src="core.PNG" alt="Core Values">
+            <div class="sub-section-content">
+                <h2>Core Values</h2>
+                <p>Maka-Diyos, Maka-tao, Makakalikasan, Makabansa</p>
+            </div>
+        </div>
+         <!-- School Leadership -->
+<div class="sub-section">
+    <img src="LEADERS.PNG" alt="School Leadership">
+    <div class="sub-section-content">
+        <h2>School Leadership of Maharlika Integrated School</h2>
+        <p>The Maharlika Integrated School is committed to delivering quality education through visionary and dedicated leadership. The school administration is composed of experienced professionals who prioritize academic excellence, student well-being, and community engagement.</p>
+        <h3>Leadership Team:</h3>
+        <ul>
+            <li>
+                <strong>Principal:</strong> Mrs. Maria Luz S. Dela Cruz  
+                <em>A passionate leader with a strong background in education management and curriculum development.</em>
+            </li>
+            <li>
+                <strong>Vice Principal:</strong> Mr. Antonio L. Santos  
+                <em>An advocate for student-centered learning and teacher empowerment.</em>
+            </li>
+            <li>
+                <strong>Academic Coordinator:</strong> Ms. Rosalie M. Lopez  
+                <em>Ensures effective implementation of programs and academic standards.</em>
+            </li>
+            <li>
+                <strong>Discipline Officer:</strong> Mr. Ramon G. Torres  
+                <em>Maintains school discipline and fosters a safe, respectful learning environment.</em>
+            </li>
+            <li>
+                <strong>PTA President:</strong> Mrs. Lourdes E. Ramos  
+                <em>Represents parents in school decision-making and strengthens school-community ties.</em>
+            </li>
+        </ul>
+        <p>Together, the leadership team of Maharlika Integrated School works tirelessly to nurture a generation of well-rounded individuals ready to face global challenges while upholding values of integrity, excellence, and compassion.</p>
+    </div>
+</div>
+
+
+    <!-- Awards Section -->
+<div class="sub-section">
+    <img src="awards.PNG" alt="Awards and Achievements">
+    <div class="sub-section-content">
+        <h2>Mga Award na Natanggap ng Maharlika Integrated School</h2>
+        <p>Ang Maharlika Integrated School ay kinikilala dahil sa husay at dedikasyon nito sa larangan ng edukasyon. Narito ang ilan sa mga prestihiyosong parangal na natanggap ng paaralan:</p>
+        <ul>
+            <li>
+                <strong>Best Performing School Award</strong>  
+                <em>Para sa consistent na mataas na academic performance ng mga estudyante sa regional assessments.</em>
+            </li>
+            <li>
+                <strong>Outstanding Community Engagement Award</strong>  
+                <em>Pagkilala sa aktibong pakikilahok ng paaralan sa community development programs.</em>
+            </li>
+            <li>
+                <strong>Excellence in Sports Development</strong>  
+                <em>Para sa matagumpay na pagsasanay ng mga atleta sa district at provincial meets.</em>
+            </li>
+            <li>
+                <strong>Innovation in Teaching Award</strong>  
+                <em>Para sa paggamit ng makabago at epektibong mga pamamaraan sa pagtuturo.</em>
+            </li>
+            <li>
+                <strong>Environmental Advocacy Recognition</strong>  
+                <em>Para sa aktibong pagpapalaganap ng gulayan at iba pang eco-friendly projects.</em>
+            </li>
+        </ul>
+        <p>Ang mga parangal na ito ay patunay ng dedikasyon ng Maharlika Integrated School sa pagbibigay ng de-kalidad na edukasyon at pagtulong sa komunidad.</p>
+    </div>
+</div>
+
+
+    <!-- Campus Facilities Section -->
+<div class="sub-section">
+    <img src="facilities.PNG" alt="Campus Facilities">
+    <div class="sub-section-content">
+        <h2>Campus Facilities of Maharlika Integrated School</h2>
+        <p>Ang Maharlika Integrated School ay may komprehensibong mga pasilidad na nagsisilbing suporta sa holistic na pagkatuto ng mga estudyante. Ang mga pasilidad ay makabago, malinis, at may ligtas na kapaligiran para sa lahat ng mag-aaral.</p>
+        <h3>Mga Pasilidad:</h3>
+        <ul>
+            <li>
+                <strong>Classrooms:</strong>  
+                <em>May mga modernong classrooms na kumpleto sa mga kagamitan tulad ng projector, air conditioning, at sapat na espasyo para sa aktibong talakayan at pagsasanay.</em>
+            </li>
+            <li>
+                <strong>Science Laboratories:</strong>  
+                <em>Ang mga science labs ay equipped para sa hands-on learning, lalo na sa mga subject na Science at Technology.</em>
+            </li>
+            <li>
+                <strong>Computer Labs:</strong>  
+                <em>May mga computer labs na may access sa mga makabago at mabilis na computers na ginagamit sa mga ICT-related subjects.</em>
+            </li>
+            <li>
+                <strong>Sports Complex:</strong>  
+                <em>Isang malawak na sports complex na ginagamit sa mga athletics, basketball, volleyball, at iba pang outdoor sports.</em>
+            </li>
+            <li>
+                <strong>Library:</strong>  
+                <em>May fully-equipped library na may mga libro, journals, at online resources na nakatutok sa academic excellence ng mga estudyante.</em>
+            </li>
+            <li>
+                <strong>Art and Music Rooms:</strong>  
+                <em>Mga special rooms na ginagamit sa mga creative subjects tulad ng Music, Arts, at MAPEH.</em>
+            </li>
+            <li>
+                <strong>Guidance and Counseling Center:</strong>  
+                <em>Isang ligtas na lugar para sa mga estudyante na nangangailangan ng emotional at academic support mula sa guidance counselors.</em>
+            </li>
+            <li>
+                <strong>Canteen:</strong>  
+                <em>Ang school canteen ay nag-aalok ng masustansya at malusog na pagkain para sa mga mag-aaral at guro.</em>
+            </li>
+        </ul>
+        <p>Ang mga pasilidad na ito ay tumutulong sa mga estudyante na maging mas aktibo, malikhaing, at well-rounded sa kanilang pag-aaral sa Maharlika Integrated School.</p>
+    </div>
+</div>
+
+
+    <!-- Accreditation and Affiliation Section -->
+<div class="sub-section">
+    <img src="faci.PNG" alt="Accreditation and Affiliation">
+    <div class="sub-section-content">
+        <h2>Accreditation and Affiliation of Maharlika Integrated School</h2>
+        <p>Ang Maharlika Integrated School ay nakatanggap ng iba’t ibang mga akreditasyon at afiliasyon mula sa mga kilalang organisasyon sa larangan ng edukasyon. Ito ay patunay ng dedikasyon ng paaralan sa pagbibigay ng mataas na kalidad ng edukasyon at ang pagsunod nito sa mga pambansang pamantayan.</p>
+        
+        <h3>ACCREDITATION:</h3>
+        <ul>
+            <li>
+                <strong>DepEd Accreditation:</strong>  
+                <em>Ang Maharlika Integrated School ay isang akreditadong paaralan ng Department of Education (DepEd), na nagsisiguro ng pagsunod sa mga pambansang patakaran at kurikulum sa edukasyon.</em>
+            </li>
+            <li>
+                <strong>ISO Certification:</strong>  
+                <em>Ang paaralan ay may ISO certification para sa kalidad ng pamamahala at operational processes nito, na nagpapakita ng pagiging epektibo sa pagpapalakad ng institusyon.</em>
+            </li>
+            <li>
+                <strong>Philippine Accrediting Association of Schools, Colleges, and Universities (PAASCU):</strong>  
+                <em>Ang Maharlika Integrated School ay miyembro ng PAASCU, isang prestihiyosong ahensya na nag-audit at nagpapatibay ng kalidad ng mga institusyon ng edukasyon sa Pilipinas.</em>
+            </li>
+        </ul>
+
+        <h3>AFFILIATION:</h3>
+        <ul>
+            <li>
+                <strong>Philippine Business for Social Progress (PBSP):</strong>  
+                <em>Ang paaralan ay nakipag-ugnayan sa PBSP upang magsagawa ng mga proyektong may kinalaman sa pangangalaga sa kapaligiran at pagbibigay ng mga serbisyo sa komunidad.</em>
+            </li>
+            <li>
+                <strong>Philippine National School Sports Association (PNSSA):</strong>  
+                <em>Kasapi ang Maharlika Integrated School sa PNSSA, kung saan nagsasagawa ng mga kompetisyon sa sports at iba pang extra-curricular activities.</em>
+            </li>
+            <li>
+                <strong>Association of Private Educators of the Philippines (APEP):</strong>  
+                <em>Ang paaralan ay kasapi ng APEP, isang grupo ng mga pribadong paaralan na nagsusulong ng mga makabago at epektibong pamamaraan sa pagtuturo.</em>
+            </li>
+        </ul>
+
+        <p>Ang mga akreditasyon at afiliasyong ito ay nagpapakita ng dedikasyon ng Maharlika Integrated School na magbigay ng mataas na kalidad na edukasyon at palakasin ang ugnayan nito sa iba pang mga institusyon at organisasyon na may layuning itaguyod ang kabutihang pang-edukasyon.</p>
+    </div>
+</div>
+
+
+   <!-- Message from Principal -->
+<div class="sub-section">
+    <img src="principal.PNG" alt="Message from Principal">
+    <div class="sub-section-content">
+        <h2>Message from the Principal</h2>
+        <p><strong>Mrs. Maria Luz S. Dela Cruz</strong></p>
+        <p>As we embark on another year of academic growth and excellence, I would like to extend my warmest greetings to all students, parents, faculty, and staff of Maharlika Integrated School. The year 2023 is filled with new opportunities, challenges, and exciting milestones for our school.</p>
+        
+        <p>Our commitment to providing quality education remains unwavering. With the support of our dedicated teachers, staff, and engaged parents, we continue to foster an environment where every student is empowered to achieve their fullest potential. At Maharlika Integrated School, we believe in developing not only academic skills but also the values of integrity, respect, and responsibility that will guide our students throughout their lives.</p>
+
+        <p>This year, we will continue to innovate our educational programs, ensuring that our students are equipped with the knowledge and skills they need to thrive in a rapidly changing world. Through various extracurricular activities, leadership programs, and community involvement, we aim to nurture well-rounded individuals who will contribute meaningfully to society.</p>
+
+        <p>I would like to take this opportunity to express my gratitude to everyone who has been part of our journey. Your trust, support, and commitment to the growth of Maharlika Integrated School have been invaluable. Together, we will continue to shape a brighter future for our students and the community.</p>
+
+        <p>Let us make 2023 a year of success, growth, and unity. Thank you, and I look forward to a productive year ahead!</p>
+
+        <p>Sincerely,</p>
+        <p><strong>Mrs. Maria Luz S. Dela Cruz</strong><br>Principal, Maharlika Integrated School</p>
+    </div>
+</div>
+
+
+    <!-- Community Involvement and Outreach Programs -->
+<div class="sub-section">
+    <img src="communities.PNG" alt="Community Involvement">
+    <div class="sub-section-content">
+        <h2>Community Involvement and Outreach Programs</h2>
+        <p>Maharlika Integrated School strongly believes in the importance of community engagement and social responsibility. Our outreach programs aim to develop the values of empathy, cooperation, and service among our students, while positively impacting the communities we serve.</p>
+        
+        <h3>Our Key Outreach Programs:</h3>
+        <ul>
+            <li>
+                <strong>Annual Feeding Program:</strong>  
+                <em>Every year, we organize a feeding program for the less fortunate children in our neighboring communities. This initiative provides meals to hundreds of children, fostering a sense of compassion and volunteerism among our students and faculty.</em>
+            </li>
+            <li>
+                <strong>Environmental Awareness Campaign:</strong>  
+                <em>Our students actively participate in various environmental campaigns, including tree planting activities, waste management seminars, and clean-up drives in nearby areas, promoting environmental sustainability and awareness.</em>
+            </li>
+            <li>
+                <strong>Health and Wellness Outreach:</strong>  
+                <em>In partnership with local health organizations, we conduct free health check-up events, medical missions, and health education seminars for the community, emphasizing the importance of health and wellness in everyday life.</em>
+            </li>
+            <li>
+                <strong>Educational Assistance Program:</strong>  
+                <em>We provide educational support to underprivileged students, offering free tutoring, school supplies, and scholarship opportunities to deserving learners, helping bridge the gap in educational access.</em>
+            </li>
+            <li>
+                <strong>Community Arts and Culture Projects:</strong>  
+                <em>Our students and faculty collaborate in various art and cultural programs that showcase the talents of the local community, fostering creativity and cultural appreciation.</em>
+            </li>
+        </ul>
+
+        <p>These programs are a testament to our school’s commitment to developing socially responsible individuals who understand the importance of giving back to the community. Together, we can make a difference and inspire positive change.</p>
+    </div>
+</div>
+
+
+    <!-- Programs Section -->
+    <div id="programs" class="programs-section section">
+        <h1>Programs</h1>
+
+        <div class="program">
+            <h2>Adopt-a-School Program</h2>
+            <img src="adopt.PNG" alt="Adopt a School">
+            <p>The Adopt-A-School Program helps generate investments and support for education. <a href="#">Read more...</a></p>
+        </div>
+
+        <div class="program">
+            <h2>School Disaster Risk Reduction Management</h2>
+            <img src="disaster.PNG" alt="Disaster Risk">
+            <p>The Philippines faces multiple hazards, making the education sector vulnerable. <a href="#">Read more...</a></p>
+        </div>
+
+        <div class="program">
+            <h2>Gulayan sa Paaralan</h2>
+            <img src="gulayan.PNG" alt="Gulayan sa Paaralan">
+            <p>Boost awareness of the importance of growing vegetables among children. <a href="#">Read more...</a></p>
+        </div>
+
+        <div class="program">
+            <h2>MTAP Saturday Program</h2>
+            <img src="mtap.PNG" alt="MTAP Program">
+            <p>The MTAP Saturday Programs enhance mathematical skills for all learners. <a href="#">Read more...</a></p>
+        </div>
+
+        <div class="program">
+            <h2>Sports Program</h2>
+            <img src="sports.PNG" alt="Sports Program">
+            <p>The Palarong Pambansa is an annual event for student-athletes across the Philippines. <a href="#">Read more...</a></p>
+        </div>
+    </div>
+ 
+    <script>
+        function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+    // Show the selected section
+    document.getElementById(sectionId).classList.add('active');
+}
+
+// Toggle the visibility of the Teachers dropdown menu
+function toggleTeachersMenu() {
+    var menu = document.getElementById('teachers-menu');
+    menu.classList.toggle('active');
+}
+
+// Show specific grade content based on which grade is clicked
+function showGrade(grade) {
+    // Hide all grade sections
+    var sections = document.querySelectorAll('.grade-section');
+    sections.forEach(function(section) {
+        section.style.display = 'none';
+    });
+
+    // Show the selected grade section
+    var selectedGrade = document.getElementById(grade);
+    if (selectedGrade) {
+        selectedGrade.style.display = 'block';
+    }
+}
+
+function toggleNewsMenu() {
+    var menu = document.getElementById('news-menu');
+    menu.classList.toggle('active'); // Toggles visibility of the news submenu
+}
+
+function showSection(sectionId) {
+            var sections = document.querySelectorAll('.article');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            var selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
+        }
+
+        function toggleNewsMenu() {
+            var menu = document.getElementById("news-menu");
+            if (menu.style.display === "none" || menu.style.display === "") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
+        }
+
+        function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.article-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    // Show the selected section
+    const selectedSection = document.getElementById(sectionId);
+    if (selectedSection) {
+        selectedSection.style.display = 'block';
+    }
+}
+
+function toggleNewsMenu() {
+    const newsMenu = document.getElementById('news-menu');
+    newsMenu.style.display = newsMenu.style.display === 'block' ? 'none' : 'block';
+}
+
+function toggleActivitiesMenu() {
+    var menu = document.getElementById('activities-menu');
+    console.log('Toggling Activities Menu'); // Debugging line to see if function is triggered
+
+    // Check if the menu is currently hidden or displayed using getComputedStyle
+    var currentDisplay = window.getComputedStyle(menu).display;
+
+    if (currentDisplay === 'block') {
+        console.log('Hiding the menu');
+        menu.style.display = 'none';  // Hide the submenu
+    } else {
+        console.log('Showing the menu');
+        menu.style.display = 'block';  // Show the submenu
+    }
+}
+
+function showActivityContent(activityId) {
+    // Hide all activities first
+    var activities = document.querySelectorAll('.activity-content');
+    activities.forEach(function(activity) {
+        activity.style.display = 'none'; // Hide all sections
+    });
+
+    // Show the selected activity
+    var selectedActivity = document.getElementById(activityId + '-content');
+    if (selectedActivity) {
+        selectedActivity.style.display = 'block'; // Show the selected section
+    }
+
+    // Hide the submenu after clicking an item
+    document.getElementById('activities-menu').style.display = 'none';
+}
+
+
+function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.service-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+        }
+
+        function showSection(sectionId) {
+    // Lahat ng mga article sections ay itinatago
+    var sections = document.querySelectorAll('.article-section');
+    sections.forEach(function(section) {
+        section.style.display = 'none';
+    });
+
+    // Ipapakita ang napiling section
+    var sectionToShow = document.getElementById(sectionId);
+    if (sectionToShow) {
+        sectionToShow.style.display = 'block';
+    }
+}
+
+document.getElementById('programs-button').addEventListener('click', function() {
+    document.querySelector('.programs-section').classList.add('active');
+});
+
+
+
+
+
+    </script>
+
+</body>
+</html>
